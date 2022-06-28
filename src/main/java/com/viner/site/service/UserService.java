@@ -38,8 +38,18 @@ public class UserService {
     }
 
     public UserDto getUserById(Long id) {
-        UserEntity foundUser = userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User with id " + id + " does not exists"));
+        UserEntity foundUser = getUserEntity(id);
         return UserMapper.INSTANCE.toUserDto(foundUser);
+    }
+
+    public UserDto deleteUser(Long id) {
+        UserEntity foundUser = getUserEntity(id);
+        userRepository.deleteById(id);
+        return UserMapper.INSTANCE.toUserDto(foundUser);
+    }
+
+    private UserEntity getUserEntity(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User with id " + id + " does not exists"));
     }
 }

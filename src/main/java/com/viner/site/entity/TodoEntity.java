@@ -4,19 +4,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
-public class UserEntity {
-
+public class TodoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String username;
-    private String password;
+    private String title;
+    private Boolean completed;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<TodoEntity> todos;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 }
