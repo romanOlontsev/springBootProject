@@ -7,7 +7,7 @@ import org.h2.tools.Server;
 import java.sql.SQLException;
 
 @Configuration
-public class AppConfig {
+public class DbTcpConfig {
 
     @Bean(initMethod = "start", destroyMethod = "stop")
     public Server h2Server() throws SQLException {
