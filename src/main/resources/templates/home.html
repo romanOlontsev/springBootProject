@@ -1,10 +1,12 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" class="h-100" lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      class="h-100" lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Главная страница</title>
+    <title>Main page</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="https://getbootstrap.com/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
@@ -60,6 +62,12 @@
             white-space: nowrap;
             -webkit-overflow-scrolling: touch;
         }
+
+        .fixed-button {
+            min-width: 80px;
+            max-width: 80px;
+        }
+
     </style>
     <link href="https://getbootstrap.com/docs/5.2/examples/cover/cover.css" rel="stylesheet">
 
@@ -74,6 +82,8 @@
             <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="/">Home</a>
             <a class="nav-link fw-bold py-1 px-0" href="#">Features</a>
             <a class="nav-link fw-bold py-1 px-0" href="/contacts">Contacts</a>
+
+            <div th:insert="blocks/loginButton :: login-button"></div>
         </nav>
     </header>
 
