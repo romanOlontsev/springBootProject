@@ -9,5 +9,5 @@ public class UserDto {
     private Long id;
     private String username;
 
-    private List<TodoDto> todos;
+//    private List<TodoDto> todos;
 }

@@ -1,17 +1,22 @@
 package com.viner.site.service;
 
-import com.viner.site.entity.UserEntity;
+import com.viner.site.entity.Role;
+import com.viner.site.entity.User;
 import com.viner.site.exceptions.UserAlreadyExistsException;
 import com.viner.site.exceptions.UserNotFoundException;
 import com.viner.site.mappers.UserMapper;
 import com.viner.site.repository.UserRepository;
 import com.viner.site.service.dto.UserDto;
 import lombok.RequiredArgsConstructor;
-import org.mapstruct.factory.Mappers;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,36 +25,40 @@ import java.util.stream.Collectors;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
 
     @Transactional
-    public UserEntity addUser(UserEntity user) {
+    public User addUser(User user) {
         userRepository.findByUsername(user.getUsername())
-                .ifPresent(it -> {
-                    throw new UserAlreadyExistsException("User already exists");
-                });
+                      .ifPresent(it -> {
+                          throw new UserAlreadyExistsException("User already exists");
+                      });
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRoles(Collections.singleton(Role.USER));
         return userRepository.save(user);
     }
 
     public List<UserDto> getUsers() {
         return userRepository.findAll()
-                .stream()
-                .map(UserMapper.INSTANCE::toUserDto)
-                .collect(Collectors.toList());
+                             .stream()
+                             .map(UserMapper.INSTANCE::toUserDto)
+                             .collect(Collectors.toList());
     }
 
     public UserDto getUserById(Long id) {
-        UserEntity foundUser = getUserEntity(id);
+        User foundUser = getUserEntity(id);
         return UserMapper.INSTANCE.toUserDto(foundUser);
     }
 
     public UserDto deleteUser(Long id) {
-        UserEntity foundUser = getUserEntity(id);
+        User foundUser = getUserEntity(id);
         userRepository.deleteById(id);
         return UserMapper.INSTANCE.toUserDto(foundUser);
     }
 
-    private UserEntity getUserEntity(Long id) {
+    private User getUserEntity(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User with id " + id + " does not exists"));
+                             .orElseThrow(() -> new UserNotFoundException("User with id " + id + " does not exists"));
     }
 }

@@ -32,13 +32,13 @@
 <!--    You have been logged out.-->
 <!--</div>-->
 <main class="form-signin w-100 m-auto">
-    <form th:action="@{/login}" method="post">
+    <form th:action="@{/registration}" method="post">
         <img class="mb-4" src="" alt width="72" height="57">
         <!--Change main site icon-->
-        <h1 class="h3 mb-3 fw-normal text-white">Please sign in</h1>
+        <h1 class="h3 mb-3 fw-normal text-white">Registration</h1>
 
         <div class="form-floating">
-            <input type="text" name="username" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <input type="text" name="username" class="form-control" id="floatingInput" placeholder="Name">
             <label for="floatingInput">User name</label>
         </div>
         <div class="form-floating">
@@ -46,12 +46,7 @@
             <label for="floatingPassword">Password</label>
         </div>
 
-        <div class="checkbox mb-3 text-white">
-            <label>
-                <input type="checkbox" value="remember-me"> Remember me
-            </label>
-        </div>
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Confirm</button>
     </form>
     <footer class="mt-5 text-white-50" th:insert="blocks/footer :: footer"></footer>
 </main>

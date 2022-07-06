@@ -1,11 +1,9 @@
 package com.viner.site.web;
 
-import com.viner.site.entity.UserEntity;
-import com.viner.site.exceptions.UserAlreadyExistsException;
+import com.viner.site.entity.User;
 import com.viner.site.service.UserService;
 import com.viner.site.service.dto.UserDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +16,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public UserEntity addNewUser(@RequestBody UserEntity user) {
+    public User addNewUser(@RequestBody User user) {
         return userService.addUser(user);
     }
 
