@@ -1,5 +1,6 @@
 package com.viner.site.entity;
 
 public enum Role {
-    USER;
+    ROLE_USER,
+    ROLE_ADMIN
 }

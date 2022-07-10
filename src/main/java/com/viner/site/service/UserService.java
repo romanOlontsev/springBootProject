@@ -35,7 +35,7 @@ public class UserService {
                           throw new UserAlreadyExistsException("User already exists");
                       });
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(Collections.singleton(Role.USER));
+        user.setRoles(Collections.singleton(Role.ROLE_USER));
         return userRepository.save(user);
     }
 

@@ -3,15 +3,25 @@ package com.viner.site.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
+import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
@@ -19,14 +29,6 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfig {
 
     private final UserDetailsServiceConfig userDetailsService;
-
-//    @Autowired
-//    public DataSource dataSource() {
-//        return new EmbeddedDatabaseBuilder()
-//                .setType(EmbeddedDatabaseType.H2)
-//                .addScript(JdbcDaoImpl.DEFAULT_USER_SCHEMA_DDL_LOCATION)
-//                .build();
-//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -37,44 +39,36 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         AuthenticationManager authenticationManager =
                 http.getSharedObject(AuthenticationManagerBuilder.class)
-                    .userDetailsService(userDetailsService)
-
-//                    .jdbcAuthentication()
-//                    .dataSource(dataSource())
-//                    .passwordEncoder(NoOpPasswordEncoder.getInstance())
-//                    .usersByUsernameQuery("SELECT username, password FROM users WHERE username=?")
-//                    .authoritiesByUsernameQuery(
-//                            "SELECT u.username, ur.roles FROM users u INNER JOIN user_role ur ON u.id = ur.user_id " +
-//                                    "WHERE u.username=?")
-                    .and()
-                    .build();
+                        .userDetailsService(userDetailsService)
+                        .and()
+                        .build();
 
 
         http.authorizeRequests()
-            .antMatchers("/", "/users/**", "/registration/**")
-            .permitAll()
-            .anyRequest()
-            .authenticated()
-            .and()
-            .formLogin(form -> form
-                    .loginPage("/login")
-                    .permitAll())
-            .logout()
-            .logoutUrl("/logout")
-            .logoutSuccessUrl("/")
-            .permitAll()
-            .and()
-            .authenticationManager(authenticationManager);
+                .antMatchers("/", "/users/**", "/registration/**")
+                .permitAll()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .permitAll())
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+                .permitAll()
+                .and()
+                .authenticationManager(authenticationManager);
         return http.build();
     }
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring()
-                         .antMatchers("/images/**",
-                                 "/js/**",
-                                 "/webjars/**",
-                                 "/h2-console/**");
+                .antMatchers("/images/**",
+                        "/js/**",
+                        "/webjars/**",
+                        "/h2-console/**");
     }
 
     @Bean
@@ -82,29 +76,4 @@ public class WebSecurityConfig {
         return auth.getAuthenticationManager();
 
     }
-
-//    @Autowired
-//    public void configure(AuthenticationManagerBuilder builder) throws Exception {
-//        builder.jdbcAuthentication()
-//               .dataSource(dataSource())
-//               .passwordEncoder(NoOpPasswordEncoder.getInstance())
-//               .usersByUsernameQuery("SELECT username, password FROM users WHERE username=?")
-//               .authoritiesByUsernameQuery(
-//                       "SELECT u.username, ur.roles FROM users u INNER JOIN user_role ur ON u.id = ur.user_id " +
-//                               "WHERE u.username=?");
-//    }
-
-
-
-//    @Bean
-//    public UserDetailsService userDetailsService() {
-//        UserDetails user =
-//                User.withDefaultPasswordEncoder()
-//                    .username("user@mail.ru")
-//                    .password("p")
-//                    .roles("USER")
-//                    .build();
-//
-//        return new InMemoryUserDetailsManager(user);
-//    }
 }
