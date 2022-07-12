@@ -7,11 +7,8 @@ import com.viner.site.exceptions.UserNotFoundException;
 import com.viner.site.mappers.UserMapper;
 import com.viner.site.repository.UserRepository;
 import com.viner.site.service.dto.UserDto;
+import com.viner.site.web.dto.AddUserDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,32 +26,33 @@ public class UserService {
 
 
     @Transactional
-    public User addUser(User user) {
+    public UserDto addUser(AddUserDto user) {
         userRepository.findByUsername(user.getUsername())
                       .ifPresent(it -> {
                           throw new UserAlreadyExistsException("User already exists");
                       });
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(Collections.singleton(Role.ROLE_USER));
-        return userRepository.save(user);
+        userRepository.save(UserMapper.INSTANCE.addUserDtoToUser(user));
+        return UserMapper.INSTANCE.addUserDtoToUserDto(user);
     }
 
     public List<UserDto> getUsers() {
         return userRepository.findAll()
                              .stream()
-                             .map(UserMapper.INSTANCE::toUserDto)
+                             .map(UserMapper.INSTANCE::userToUserDto)
                              .collect(Collectors.toList());
     }
 
     public UserDto getUserById(Long id) {
         User foundUser = getUserEntity(id);
-        return UserMapper.INSTANCE.toUserDto(foundUser);
+        return UserMapper.INSTANCE.userToUserDto(foundUser);
     }
 
     public UserDto deleteUser(Long id) {
         User foundUser = getUserEntity(id);
         userRepository.deleteById(id);
-        return UserMapper.INSTANCE.toUserDto(foundUser);
+        return UserMapper.INSTANCE.userToUserDto(foundUser);
     }
 
     private User getUserEntity(Long id) {

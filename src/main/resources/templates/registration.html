@@ -32,15 +32,17 @@
 <!--    You have been logged out.-->
 <!--</div>-->
 <main class="form-signin w-100 m-auto">
-    <form th:action="@{/registration}" method="post">
+    <form th:action="@{/registration}" th:method="post" th:object="${user}">
         <img class="mb-4" src="" alt width="72" height="57">
         <!--Change main site icon-->
         <h1 class="h3 mb-3 fw-normal text-white">Registration</h1>
 
         <div class="form-floating">
-            <input type="text" name="username" class="form-control" id="floatingInput" placeholder="Name">
+            <input type="text" name="username" class="form-control" id="floatingInput" placeholder="Name" >
             <label for="floatingInput">User name</label>
+            <span th:if="${#fields.hasErrors('username')}"> GG </span>
         </div>
+
         <div class="form-floating">
             <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
             <label for="floatingPassword">Password</label>
