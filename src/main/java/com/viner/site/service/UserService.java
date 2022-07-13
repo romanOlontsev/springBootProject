@@ -26,15 +26,16 @@ public class UserService {
 
 
     @Transactional
-    public UserDto addUser(AddUserDto user) {
-        userRepository.findByUsername(user.getUsername())
+    public UserDto addUser(AddUserDto addedUser) {
+        userRepository.findByUsername(addedUser.getUsername())
                       .ifPresent(it -> {
                           throw new UserAlreadyExistsException("User already exists");
                       });
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        User user = UserMapper.INSTANCE.addUserDtoToUser(addedUser);
+        user.setPassword(passwordEncoder.encode(addedUser.getPassword()));
         user.setRoles(Collections.singleton(Role.ROLE_USER));
-        userRepository.save(UserMapper.INSTANCE.addUserDtoToUser(user));
-        return UserMapper.INSTANCE.addUserDtoToUserDto(user);
+        userRepository.save(user);
+        return UserMapper.INSTANCE.userToUserDto(user);
     }
 
     public List<UserDto> getUsers() {

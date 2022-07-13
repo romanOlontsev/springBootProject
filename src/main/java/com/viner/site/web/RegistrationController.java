@@ -25,17 +25,21 @@ public class RegistrationController {
     private final UserService userService;
 
     @GetMapping("/registration")
-    public String registration() {
+    public String registration(Model model) {
+        model.addAttribute(new AddUserDto());
         return "registration";
     }
 
     @PostMapping("/registration")
-    public String addUser(@ModelAttribute("user") @Valid AddUserDto addUserDto, BindingResult result, Model model) {
+    public String addUser(@Valid AddUserDto addUserDto,
+                          BindingResult result,
+                          Model model) {
 
         if (result.hasErrors()) {
+//            model.addAttribute("errorMessage","ERROR");
             return "registration";
         }
-        model.addAttribute("user", addUserDto);
+//        model.addAttribute("user", addUserDto);
         userService.addUser(addUserDto);
         return "redirect:/login";
 
