@@ -1,6 +1,5 @@
 package com.viner.site.web;
 
-import com.viner.site.entity.User;
 import com.viner.site.service.UserService;
 import com.viner.site.service.dto.UserDto;
 import com.viner.site.web.dto.AddUserDto;
