@@ -6,37 +6,26 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="generator" content="">
+
     <title>Sign in</title>
-
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
-
     <link href="https://getbootstrap.com/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-
     <!-- Favicons -->
-    <!--    <link rel="apple-touch-icon" href="/docs/5.2/assets/img/favicons/apple-touch-icon.png" sizes="180x180">-->
-    <!--    <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">-->
-    <!--    <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">-->
-    <!--    <link rel="manifest" href="/docs/5.2/assets/img/favicons/manifest.json">-->
-    <!--    <link rel="mask-icon" href="/docs/5.2/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">-->
-    <!--    <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon.ico">-->
+    <link rel="apple-touch-icon" sizes="180x180" href="../static/images/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../static/images/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../static/images/favicons/favicon-16x16.png">
+    <link rel="icon" href="/static/images/favicons/favicon.ico">
+
     <meta name="theme-color" content="#712cf9">
     <style th:insert="blocks/style :: style"></style>
     <link href="https://getbootstrap.com/docs/5.2/examples/sign-in/signin.css" rel="stylesheet">
 </head>
 <body class="text-center bg-dark">
-<!--<div th:if="${param.error}">-->
-<!--    Invalid username and password.-->
-<!--</div>-->
-<!--<div th:if="${param.logout}">-->
-<!--    You have been logged out.-->
-<!--</div>-->
 <main class="form-sign-in w-100 mx-auto">
     <form th:action="@{/login}" method="post">
-        <img class="mb-4" src="" alt width="72" height="57">
-        <!--Change main site icon-->
+        <img th:src="@{/images/logo-white.png}" alt="image" width="72" height="75" src="/static/images/logo-white.png">
         <h1 class="h3 mb-3 fw-normal text-white">Please sign in</h1>
-
         <div class="w-75 mx-auto row justify-content-center">
             <div class="form-floating col-4">
                 <input type="text" name="username" class="form-control" id="floatingInput" placeholder="UserName">
@@ -50,7 +39,6 @@
                 <label for="floatingPassword">Password</label>
             </div>
         </div>
-
         <div class="checkbox mb-3 text-white">
             <label>
                 <input type="checkbox" value="remember-me"> Remember me
@@ -70,7 +58,6 @@
     </form>
     <footer class="mt-5 text-white-50" th:insert="blocks/footer :: footer"></footer>
 </main>
-
 
 <div at-magnifier-wrapper="">
     <div class="at-theme-light">

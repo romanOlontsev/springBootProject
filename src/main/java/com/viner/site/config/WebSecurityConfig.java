@@ -35,7 +35,7 @@ public class WebSecurityConfig {
 
 
         http.authorizeRequests()
-            .antMatchers("/", "/users/**", "/registration/**")
+            .antMatchers("/", "/users/**", "/registration/**", "/static/images/**")
             .permitAll()
             .anyRequest()
             .authenticated()
