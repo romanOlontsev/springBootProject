@@ -9,12 +9,14 @@ import com.viner.site.repository.UserRepository;
 import com.viner.site.service.dto.UserDto;
 import com.viner.site.web.dto.AddUserDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,9 +26,15 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    @Value("${spring.security.user.name}")
+    private String adminUserName;
 
     @Transactional
     public UserDto addUser(AddUserDto addedUser) {
+        if (addedUser.getUsername()
+                     .equals(adminUserName)) {
+            throw new UserAlreadyExistsException("User already exists");
+        }
         userRepository.findByUsername(addedUser.getUsername())
                       .ifPresent(it -> {
                           throw new UserAlreadyExistsException("User already exists");

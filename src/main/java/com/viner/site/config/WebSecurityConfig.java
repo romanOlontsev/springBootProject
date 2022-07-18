@@ -1,5 +1,7 @@
 package com.viner.site.config;
 
+import com.viner.site.config.handlers.CustomAccessDeniedHandler;
+import com.viner.site.config.handlers.CustomAuthenticationSuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +14,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -35,18 +39,25 @@ public class WebSecurityConfig {
 
 
         http.authorizeRequests()
+            .antMatchers("/console/**")
+            .hasRole("ADMIN")
+
             .antMatchers("/", "/users/**", "/registration/**", "/static/images/**")
             .permitAll()
+
             .anyRequest()
             .authenticated()
             .and()
             .formLogin(form -> form
                     .loginPage("/login")
+                    .successHandler(customAuthenticationSuccessHandler())
                     .permitAll())
             .logout(logout -> logout.logoutUrl("/logout")
                                     .logoutSuccessUrl("/")
                                     .permitAll())
-            .authenticationManager(authenticationManager);
+            .authenticationManager(authenticationManager)
+            .exceptionHandling()
+            .accessDeniedHandler(accessDeniedHandler());
         return http.build();
     }
 
@@ -62,6 +73,15 @@ public class WebSecurityConfig {
     @Bean
     public AuthenticationManager jdbcAuthenticationManager(AuthenticationConfiguration auth) throws Exception {
         return auth.getAuthenticationManager();
+    }
 
+    @Bean
+    public AuthenticationSuccessHandler customAuthenticationSuccessHandler() {
+        return new CustomAuthenticationSuccessHandler();
+    }
+
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        return new CustomAccessDeniedHandler();
     }
 }

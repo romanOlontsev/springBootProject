@@ -22,14 +22,18 @@
     <link href="https://getbootstrap.com/docs/5.2/examples/sign-in/signin.css" rel="stylesheet">
 </head>
 <body class="text-center bg-dark">
+
 <main class="form-sign-in w-100 mx-auto">
     <form th:action="@{/login}" method="post">
         <img th:src="@{/images/logo-white.png}" alt="image" width="72" height="75" src="/static/images/logo-white.png">
         <h1 class="h3 mb-3 fw-normal text-white">Please sign in</h1>
-        <div class="w-75 mx-auto row justify-content-center">
+        <div class="w-75 mx-auto row justify-content-end">
             <div class="form-floating col-4">
                 <input type="text" name="username" class="form-control" id="floatingInput" placeholder="UserName">
                 <label for="floatingInput">User name</label>
+            </div>
+            <div class="col-4 text-lg-start">
+                <span class="text-danger" th:if="${param.error}">Invalid username or password</span>
             </div>
         </div>
         <div class="w-75 mx-auto row justify-content-center">
