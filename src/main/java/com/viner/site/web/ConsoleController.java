@@ -13,4 +13,11 @@ public class ConsoleController {
         modelAndView.setViewName("console");
         return modelAndView;
     }
+
+    @GetMapping("/console/users")
+    public ModelAndView getUsers() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("users");
+        return modelAndView;
+    }
 }

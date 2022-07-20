@@ -39,10 +39,10 @@ public class WebSecurityConfig {
 
 
         http.authorizeRequests()
-            .antMatchers("/console/**")
+            .antMatchers("/console/**", "/data/**")
             .hasRole("ADMIN")
 
-            .antMatchers("/", "/users/**", "/registration/**", "/static/images/**")
+            .antMatchers("/", "/registration/**", "/static/images/**")
             .permitAll()
 
             .anyRequest()
