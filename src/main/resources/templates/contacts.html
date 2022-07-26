@@ -22,34 +22,43 @@
 
     <meta name="theme-color" content="#712cf9">
     <style th:insert="blocks/style :: style"></style>
-<!--    <link href="https://getbootstrap.com/docs/5.2/examples/cover/cover.css" rel="stylesheet">-->
+    <!--    <link href="https://getbootstrap.com/docs/5.2/examples/cover/cover.css" rel="stylesheet">-->
 
 </head>
 
-<body class="d-flex h-100 text-center text-white bg-dark">
+<body class="d-flex flex-column h-100 bg-dark">
+<header>
+    <div class="navbar navbar-dark">
+        <div class="container">
+            <a href="/" class="navbar-brand d-flex align-items-center">
+                <img src="/images/logo-white.svg" alt="" width="28" height="30"
+                     class="d-inline-block align-text-top">
+                <strong>NameProject</strong>
+            </a>
+            <nav class="nav nav-masthead justify-content-center float-md-end">
+                <a data-toggle="tab" class="nav-link fw-bold py-1 px-0" aria-current="page" href="/">Home</a>
+                <a data-toggle="tab" class="nav-link fw-bold py-1 px-0" href="#">Features</a>
+                <a data-toggle="tab" class="nav-link fw-bold py-1 px-0" href="/contacts">Contacts</a>
 
-<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-    <header class="mb-auto">
-        <h3 class="float-md-start mb-0">NameProject</h3>
-        <nav class="nav nav-masthead justify-content-center float-md-end">
-            <a class="nav-link fw-bold py-1 px-0" aria-current="page" href="/">Home</a>
-            <a class="nav-link fw-bold py-1 px-0" href="#">Features</a>
-            <a class="nav-link fw-bold py-1 px-0 active" href="/contacts">Contacts</a>
+                <div th:insert="blocks/loginButton :: login-button"></div>
+            </nav>
+        </div>
+    </div>
+</header>
 
-            <div th:insert="blocks/loginButton :: login-button"></div>
-        </nav>
-    </header>
 
-    <main class="px-3">
+<main class="px-5 py-5">
+    <div class="container text-center text-white">
         <h1>Contact.</h1>
         <p class="lead">Some contacts</p>
         <p class="lead">
-            <a href="#" class="btn btn-lg btn-secondary fw-bold text-dark border-white bg-white">tel.+#(###)###-##-##</a>
+            <a href="#"
+               class="btn btn-lg btn-secondary fw-bold text-dark border-white bg-white">tel.+#(###)###-##-##</a>
         </p>
-    </main>
+    </div>
+</main>
 
-    <footer class="mt-auto text-white-50" th:insert="blocks/footer :: footer"></footer>
-</div>
+<footer th:replace="blocks/footer :: footer"></footer>
 
 <div at-magnifier-wrapper="">
     <div class="at-theme-light">

@@ -12,7 +12,7 @@ async function getUsers() {
 const createTable = (data) => {
     const tableData = data;
     const headerData = Object.keys(tableData[0]);
-    const table = document.createElement('table');
+    // const table = document.createElement('table');
     const tr = table.insertRow(-1);
     for (let i = 0; i < headerData.length; i++) {
         const th = document.createElement('th');
