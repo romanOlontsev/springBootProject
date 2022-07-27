@@ -27,25 +27,18 @@
 
 </head>
 
-<body class="d-flex h-100 text-center text-white bg-dark">
+<body class="d-flex flex-column h-100 bg-dark">
+<header th:replace="blocks/navbar :: navbar"></header>
 
-<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-    <header class="mb-auto">
-        <h3 class="float-md-start mb-0">NameProject</h3>
-        <nav class="nav nav-masthead justify-content-center float-md-end">
-            <a class="nav-link fw-bold py-1 px-0" aria-current="page" href="/">Home</a>
-            <a class="nav-link fw-bold py-1 px-0" href="#">Features</a>
-            <a class="nav-link fw-bold py-1 px-0" href="/contacts">Contacts</a>
+<main class="px-5 py-5">
+    <div class="container">
+        <div class="d-flex justify-content-start flex-grow-1 px-5 py-4">
+            <table id="getUser" class="table table-dark table-bordered"></table>
+        </div>
+    </div>
+</main>
 
-            <div th:insert="blocks/loginButton :: login-button"></div>
-        </nav>
-    </header>
-
-    <main class="d-flex justify-content-start flex-grow-1 px-5 py-4">
-        <table id="getUser" class="table table-dark table-bordered"></table>
-    </main>
-
-    <footer class="mt-auto text-white-50" th:insert="blocks/footer :: footer"></footer>
+<footer class="mt-auto text-white-50" th:insert="blocks/footer :: footer"></footer>
 
 </div>
 <script>

@@ -1,0 +1,17 @@
+<header th:fragment="navbar">
+    <div class="navbar navbar-dark py-3">
+        <div class="container">
+            <a href="/" class="navbar-brand d-flex align-items-center">
+                <img src="/images/logo-white.svg" alt="" width="28" height="30"
+                     class="d-inline-block align-text-top">
+                <strong>NameProject</strong>
+            </a>
+            <nav class="nav nav-masthead justify-content-center float-md-end">
+                <a class="nav-link fw-bold py-1 px-0" aria-current="page" href="/">Home</a>
+                <a class="nav-link fw-bold py-1 px-0" href="#">Features</a>
+                <a class="nav-link fw-bold py-1 px-0" href="/contacts">Contacts</a>
+                <div th:replace="blocks/loginButton :: login-button"></div>
+            </nav>
+        </div>
+    </div>
+</header>
