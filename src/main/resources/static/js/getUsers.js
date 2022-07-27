@@ -13,7 +13,8 @@ const createTable = (data) => {
     const tableData = data;
     const headerData = Object.keys(tableData[0]);
     // const table = document.createElement('table');
-    const tr = table.insertRow(-1);
+    const table = document.getElementById("table");
+    const tr = (table).insertRow(-1);
     for (let i = 0; i < headerData.length; i++) {
         const th = document.createElement('th');
         th.innerHTML = headerData[i];
@@ -29,5 +30,5 @@ const createTable = (data) => {
             tr.appendChild(td);
         }
     }
-    document.getElementById("table").appendChild(table);
+    // document.getElementById("table")        .appendChild(table);
 }

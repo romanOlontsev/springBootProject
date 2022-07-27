@@ -10,9 +10,28 @@ async function getUserById() {
 }
 
 const createUser = (data) => {
+    let roles = getRoles();
+
     document.getElementById("getUser").innerHTML =
-        "<tr class='d-flex'>" +
-        "<th style='height: 30%'>User Id" +
+        "<tr>" +
+        "<th>User Id" +
         "<th>Username" +
-        "<th>User role";
+        "<th>User role" +
+        "</tr>" +
+        "<tr>" +
+        "<td>" + data.id +
+        "<td>" + data.username +
+        "<td>" + roles;
+
+
+    function getRoles() {
+        let text = "<ul>";
+        data.roles.forEach(addTag);
+        text += "</ul>";
+        return text;
+
+        function addTag(value) {
+            text += "<li>" + value + "</li>";
+        }
+    }
 }
