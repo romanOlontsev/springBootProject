@@ -38,7 +38,9 @@ public class WebSecurityConfig {
                     .build();
 
 
-        http.authorizeRequests()
+        http.csrf()
+            .disable()
+            .authorizeRequests()
             .antMatchers("/console/**", "/data/**")
             .hasRole("ADMIN")
 

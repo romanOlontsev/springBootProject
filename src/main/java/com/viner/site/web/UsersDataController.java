@@ -3,6 +3,7 @@ package com.viner.site.web;
 import com.viner.site.service.UserService;
 import com.viner.site.service.dto.UserDto;
 import com.viner.site.web.dto.AddUserDto;
+import com.viner.site.web.dto.UpdateUserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +17,14 @@ public class UsersDataController {
     private final UserService userService;
 
     @PostMapping
-    public UserDto addNewUser(@RequestBody AddUserDto user) {
+    public UserDto addNewUser(AddUserDto user) {
         return userService.addUser(user);
+    }
+
+    @PutMapping("/{userId}")
+    public UserDto updateUser(@PathVariable("userId") Long userId,
+                              @RequestBody UpdateUserDto updateUserDto) {
+        return userService.updateUser(userId, updateUserDto);
     }
 
     @GetMapping
