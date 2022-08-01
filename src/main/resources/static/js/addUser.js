@@ -1,6 +1,5 @@
 addForm.onsubmit = async (e) => {
     e.preventDefault();
-
     let response = await fetch('/data/users/', {
         method: 'POST',
         body: new FormData(addForm)

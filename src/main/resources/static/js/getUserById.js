@@ -1,6 +1,4 @@
-getUserById();
-
-async function getUserById() {
+window.onload = async function getUserById() {
     const response = await fetch('/data/users/' + userId);
     if (response.ok) {
         await response.json().then(data => createUser(data)).catch(err => console.log(err));

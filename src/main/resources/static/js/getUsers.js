@@ -1,6 +1,4 @@
-getUsers();
-
-async function getUsers() {
+window.onload = async function getUsers() {
     const response = await fetch('/data/users');
     if (response.ok) {
         await response.json().then(data => createTable(data)).catch(err => console.log(err));

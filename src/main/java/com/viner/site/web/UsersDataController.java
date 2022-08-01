@@ -21,7 +21,7 @@ public class UsersDataController {
         return userService.addUser(user);
     }
 
-    @PutMapping("/{userId}")
+    @PatchMapping("/{userId}")
     public UserDto updateUser(@PathVariable("userId") Long userId,
                               @RequestBody UpdateUserDto updateUserDto) {
         return userService.updateUser(userId, updateUserDto);
