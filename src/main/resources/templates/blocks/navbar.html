@@ -7,10 +7,22 @@
                 <strong>NameProject</strong>
             </a>
             <nav class="nav nav-masthead justify-content-center float-md-end">
-                <a class="nav-link fw-bold py-1 px-0" aria-current="page" href="/">Home</a>
+                <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link fw-bold py-1 px-0" href="/console">Console</a>
+                <a class="nav-link fw-bold py-1 px-0" href="/">Home</a>
                 <a class="nav-link fw-bold py-1 px-0" href="#">Features</a>
                 <a class="nav-link fw-bold py-1 px-0" href="/contacts">Contacts</a>
-                <div th:replace="blocks/loginButton :: login-button"></div>
+                <div th:fragment="loginButton" class="float-right ms-3">
+                    <div sec:authorize="isAuthenticated()">
+                        <form th:action="@{/logout}" method="post">
+                            <input type="submit"
+                                   class="btn btn-sm btn-secondary fw-bold py-1 px-0 btn-light text-dark fixed-button"
+                                   value="Sign Out"/></form>
+                    </div>
+                    <div sec:authorize="isAnonymous()">
+                        <a class="btn btn-sm btn-secondary fw-bold py-1 btn-light text-dark fixed-button"
+                           th:href="@{/login}">Login</a>
+                    </div>
+                </div>
             </nav>
         </div>
     </div>

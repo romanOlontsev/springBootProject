@@ -16,6 +16,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
             crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
     <!-- Favicons -->
     <link rel="apple-touch-icon" sizes="180x180" href="../static/images/favicons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../static/images/favicons/favicon-32x32.png">
@@ -33,13 +35,16 @@
 <main class="px-5 py-5">
     <div class="container text-white">
         <div class="list-group-flush py-4">
-            <a href="/console/users" class="list-group-item lead link-light">Users</a>
-            <a href="#" class="list-group-item lead link-light">Some action</a>
+            <a href="/console/users" class="list-group-item list-group-item-action lead">Users</a>
+            <a href="#" class="list-group-item list-group-item-action lead">Some action</a>
+            <a href="#" class="list-group-item list-group-item-action lead">Some action</a>
+            <a href="#" class="list-group-item list-group-item-action lead">Some action</a>
         </div>
     </div>
 </main>
 
 <footer th:replace="blocks/footer :: footer"></footer>
+<script type="text/javascript" th:src="@{/js/changeActiveButton.js}"></script>
 
 <div at-magnifier-wrapper="">
     <div class="at-theme-light">
