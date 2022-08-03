@@ -37,14 +37,18 @@ public class WebSecurityConfig {
                     .and()
                     .build();
 
-
         http.csrf()
             .disable()
             .authorizeRequests()
-            .antMatchers("/console/**", "/data/**")
+            .antMatchers("/console/**",
+                    "/data/**")
             .hasRole("ADMIN")
 
-            .antMatchers("/", "/registration/**", "/static/images/**")
+            .antMatchers("/",
+                    "/registration/**",
+                    "/images/**",
+                    "/js/**",
+                    "/css/**")
             .permitAll()
 
             .anyRequest()
@@ -66,10 +70,7 @@ public class WebSecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring()
-                         .antMatchers("/images/**",
-                                 "/js/**",
-                                 "/webjars/**",
-                                 "/h2-console/**");
+                         .antMatchers("/h2-console/**");
     }
 
     @Bean
