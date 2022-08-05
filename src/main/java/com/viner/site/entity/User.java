@@ -1,5 +1,7 @@
 package com.viner.site.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,8 +11,10 @@ import java.util.Set;
 
 @Entity
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "USERS")
+@Builder
 public class User {
 
     @Id
@@ -23,7 +27,4 @@ public class User {
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
-
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-//    private List<TodoEntity> todos;
 }
