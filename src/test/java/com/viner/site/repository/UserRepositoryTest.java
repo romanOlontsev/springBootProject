@@ -26,11 +26,9 @@ public class UserRepositoryTest {
                         .roles(Collections.singleton(Role.ROLE_USER))
                         .build();
         userRepository.save(user);
-
         //when
         User foundUser = userRepository.findByUsername("Alex")
                                        .orElse(null);
-
         //then
         assertThat(foundUser).isNotNull();
         assertThat(foundUser).isEqualTo(user);
@@ -45,11 +43,9 @@ public class UserRepositoryTest {
                         .roles(Collections.singleton(Role.ROLE_USER))
                         .build();
         userRepository.save(user);
-
         //when
-        User foundUser = userRepository.findByUsername("Alex")
+        User foundUser = userRepository.findByUsername("UnknownUser")
                                        .orElse(null);
-
         //then
         assertThat(foundUser).isNull();
     }
@@ -63,14 +59,13 @@ public class UserRepositoryTest {
                         .roles(Collections.singleton(Role.ROLE_ADMIN))
                         .build();
         userRepository.save(user);
-
         //when
         User foundUser = userRepository.findById(user.getId())
                                        .orElse(null);
-
         //then
         assertThat(foundUser).isNotNull();
-        assertThat(foundUser).extracting("username").isEqualTo("Oleg");
+        assertThat(foundUser).extracting("username")
+                             .isEqualTo(user.getUsername());
     }
 
     @Test
@@ -82,11 +77,9 @@ public class UserRepositoryTest {
                         .roles(Collections.singleton(Role.ROLE_USER))
                         .build();
         userRepository.save(user);
-
         //when
         User foundUser = userRepository.findById(12L)
                                        .orElse(null);
-
         //then
         assertThat(foundUser).isNull();
     }
